@@ -1,0 +1,1 @@
+web: gunicorn --chdir bitcoinin bitcoinin.wsgi:application --log-file -
