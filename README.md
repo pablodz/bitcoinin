@@ -1,4 +1,4 @@
-# MedicPUCP - Web
+# BitcoinIN - Web
 
 [![Build Status](https://travis-ci.org/ZurMaD/bitcoinin.svg?branch=main)](https://travis-ci.com/ZurMaD/bitcoinin)
 
