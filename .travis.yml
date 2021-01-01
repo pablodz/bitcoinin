@@ -39,4 +39,4 @@ install:
 #   - psql -c "CREATE DATABASE mydb;" -U postgres
 
 script:
-  - python "pdm/manage.py" test # no runserver because cant stop
+  - python "bitcoinin/manage.py" test # no runserver because cant stop
