@@ -6,5 +6,5 @@ python-decouple==3.3
 pytz==2020.1
 whitenoise==5.1.0
 pycoingecko==1.4.0
-lxml==3.4.0
+lxml
 git+git://github.com/iratemonkey/django-heroku@61cfc05 #django-heroku original is broken with psycopg2 instead of psycopg2-binary
