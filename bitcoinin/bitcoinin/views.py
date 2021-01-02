@@ -220,7 +220,7 @@ def generate_chart_data(json_response_sub):
 
 
 def get_largest_companies_by_market_cap_and_include_bitcoin(last_price_bitcoin, last_marketcap_bitcoin, var_price_bitcoin):
-    data = pd.read_html('https://companiesmarketcap.com/')
+    data = pd.read_html('https://companiesmarketcap.com/', encoding='utf-8')
     bitcoin_allocated = 0
     data = data[0]  # wrapped
     for i, row in data.iterrows():
