@@ -17,8 +17,12 @@
     <a href="https://bitcoinin.herokuapp.com">View Demo</a>
   </p>
 </p>
+
 <hr style="height:2px;border-width:0;color:gray;background-color:gray">
 
+![](docs/img/screenshot.png)
+
+<hr style="height:2px;border-width:0;color:gray;background-color:gray">
 
 <!-- TABLE OF CONTENTS -->
 <!-- ## Table of Contents -->
@@ -28,4 +32,4 @@
 <!-- ABOUT THE PROJECT -->
 ## About The Project
 
-Represent the growth of Bitcoin compared to market capitalization.
+Represent the growth of Bitcoin.
