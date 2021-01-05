@@ -272,8 +272,8 @@ def bitcoinasfiat_view(request):
     last_marketcap_bitcoin = round(
         json_response['market_caps'][myindex_last][1]/one_billion, 2)
 
-    # BITCOIN AS A COMPANY
-    print("BTC AS COMPANY: ", last_price_bitcoin,
+    # BITCOIN AS A FIAT
+    print("BTC AS FIAT: ", last_price_bitcoin,
           last_marketcap_bitcoin, var_price_bitcoin)
     table_company = get_fiat_currencies_by_market_cap_and_include_bitcoin(
         last_price_bitcoin, last_marketcap_bitcoin)
@@ -351,33 +351,34 @@ def get_largest_companies_by_market_cap_and_include_bitcoin(last_price_bitcoin, 
 
 def get_fiat_currencies_by_market_cap_and_include_bitcoin(last_price_bitcoin, last_marketcap_bitcoin):
 
-    data = pd.read_html('https://fiatmarketcap.com/', encoding='utf-8')
+    data = pd.read_html('http://fiatmarketcap.com/', encoding='utf-8')
     bitcoin_allocated = 0
     data2 = data[0]  # wrapped
+    print(data2)
 
-    for idx, row in data2.iterrows():
+    # for idx, row in data2.iterrows():
 
-        mc = float(row['Market Cap'][:-4].replace(',', ''))
+    #     mc = float(row['Market Cap'][:-4].replace(',', ''))
 
-        mc = mc*last_price_bitcoin
+    #     mc = mc*last_price_bitcoin
 
-        if mc in range(one_million, one_billion-1):
-            mc = mc/one_million
-            units = " M"
-        elif mc in range(one_billion, one_trillion-1):
-            mc = mc/one_billion
-            units = " B"
-        elif mc in range(one_trillion, one_cuatrillion-1):
-            mc = mc/one_trillion
-            units = " T"
-        mc_string = str(round(mc, 2))+units
+    #     if mc in range(one_million, one_billion-1):
+    #         mc = mc/one_million
+    #         units = " M"
+    #     elif mc in range(one_billion, one_trillion-1):
+    #         mc = mc/one_billion
+    #         units = " B"
+    #     elif mc in range(one_trillion, one_cuatrillion-1):
+    #         mc = mc/one_trillion
+    #         units = " T"
+    #     mc_string = str(round(mc, 2))+units
 
-        data2.loc[idx, 'Market Cap 2'] = mc_string
+    #     data2.loc[idx, 'Market Cap 2'] = mc_string
 
-        # Compare to BTC and include
-        if last_marketcap_bitcoin*one_billion > mc and bitcoin_allocated == 0:
-            bitcoin_allocated = 1
-            print("BTC!")
+    #     # Compare to BTC and include
+    #     if last_marketcap_bitcoin*one_billion > mc and bitcoin_allocated == 0:
+    #         bitcoin_allocated = 1
+    #         print("BTC!")
 
             # ALREADY LISTED
 
