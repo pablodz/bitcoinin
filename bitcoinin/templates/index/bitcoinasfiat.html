@@ -1,0 +1,59 @@
+{% extends 'index/base.html' %}
+{% load static %}
+
+{% block cabecera %}
+{% endblock cabecera %}
+
+{% block contenido %}
+<div class="row">
+    <div class="col-12">
+        <div class="card mb-3 mb-md-4">
+            <div class="card-header">
+                <h5 class="font-weight-semi-bold mb-0">Bicoin as a company (isn't) | Market Cap | {{now1}}</h5>
+            </div>
+            <div class="card-body pt-0">
+                <div class="table-responsive-xl">
+                    <table class="table text-nowrap mb-0">
+                        <thead>
+                            <tr>
+                                <th class="font-weight-semi-bold border-top-0 py-2">Rank</th>
+                                <th class="font-weight-semi-bold border-top-0 py-2">Name</th>
+                                <th class="font-weight-semi-bold border-top-0 py-2">Market Cap</th>
+                                <th class="font-weight-semi-bold border-top-0 py-2">Price</th>
+                                <th class="font-weight-semi-bold border-top-0 py-2">Price (24H)</th>
+                                <th class="font-weight-semi-bold border-top-0 py-2">Country</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for idx,row in table_company.iterrows %}
+                            {% if row.1 == 'BITCOIN' %}
+                            <tr>
+                                <td class="py-3 bg-warning">{{ row.0 }}</td>
+                                <td class="py-3 bg-warning">{{ row.1 }}</td>
+                                <td class="py-3 bg-warning">{{ row.2 }}</td>
+                                <td class="py-3 bg-warning">{{ row.3 }}</td>
+                                <td class="py-3 bg-warning">{{ row.4 }}</td>
+                                <td class="py-3 bg-warning">{{ row.5 }}</td>
+                            </tr>
+                            {% else %}
+                            <tr>
+                                <td class="py-3">{{ row.0 }}</td>
+                                <td class="py-3">{{ row.1 }}</td>
+                                <td class="py-3">{{ row.2 }}</td>
+                                <td class="py-3">{{ row.3 }}</td>
+                                <td class="py-3">{{ row.4 }}</td>
+                                <td class="py-3">{{ row.5 }}</td>
+                            </tr>
+                            {% endif %}
+                            {% endfor%}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock contenido %}
+
+{% block scripts %}
+{% endblock scripts %}

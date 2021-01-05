@@ -40,7 +40,10 @@ List of cards:
 2. Bitcoin Market Cap (24H)
 3. Bitcoin Volume (24H)
 4. Comparison with last year (1yo)
-5. Bitcoin listed as company by market cap (Top 20)
+5. Bitcoin listed as company by market cap
+6. Bitcoin listed as currrency by market cap
+
+Sources: fiatmarketcap, companiesmarketcap, coingecko
 
 ## Install
 

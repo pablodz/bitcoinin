@@ -26,6 +26,9 @@ from .views import signup
 
 # Pages
 from .views import index_view
+from .views import bitcoinasacompany_view
+from .views import bitcoinasfiat_view
+
 urlpatterns = [
 
     path('admin/', admin.site.urls),
@@ -36,6 +39,8 @@ urlpatterns = [
 
     # -----------------INICIO INDEX----------------
     path('', index_view, name='main-view'),
+    path('bitcoinasacompany/', bitcoinasacompany_view, name='bitcoinasacompany-view'),
+    path('bitcoinasfiat/', bitcoinasfiat_view, name='bitcoinasfiat-view'),
     # ------------------FIN INDEX------------------
 
 ]+static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)

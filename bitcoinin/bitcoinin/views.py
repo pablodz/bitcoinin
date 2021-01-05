@@ -50,12 +50,16 @@ def signup(request):
 
 #import yfinance as yf
 
+one_cuatrillion = 1000000000000000
 one_trillion = 1000000000000
 one_billion = 1000000000
+one_million = 1000000
 one_thousand = 1000
 
 
 def index_view(request):
+
+    index_html = '1'
 
     current_time = time.localtime()
     now1 = time.strftime('%Y-%m-%d %H:%M:%S', current_time)
@@ -181,14 +185,101 @@ def index_view(request):
 
     print("vars:", var_year_ago_marketcap_abs, " ", var_year_ago_volume_abs)
 
+    return render(request, 'index/index.html', locals())
+
+
+def bitcoinasacompany_view(request):
+
+    index_html = '2'
+
+    current_time = time.localtime()
+    now1 = time.strftime('%Y-%m-%d %H:%M:%S', current_time)
+    year_ago = datetime.datetime.utcnow() - datetime.timedelta(days=365)
+
+    # Client api crypto
+    cg = CoinGeckoAPI()
+    json_response = cg.get_coin_market_chart_by_id('bitcoin', 'USD', '1')
+
+    myindex_last = -1
+    myindex_first = 0
+
+    # Prices of BTC
+    first_price_bitcoin = round(json_response['prices'][myindex_first][1], 2)
+    last_price_bitcoin = round(json_response['prices'][myindex_last][1], 2)
+
+    # Symbol +/-
+    var_price_bitcoin = last_price_bitcoin-first_price_bitcoin
+
+    # Data price of the last 24h
+    print("len prices: {}".format(len(json_response['prices'])))
+
+    # Market cap of the last 24h
+
+    first_marketcap_bitcoin = round(
+        json_response['market_caps'][myindex_first][1]/one_billion, 2)
+    last_marketcap_bitcoin = round(
+        json_response['market_caps'][myindex_last][1]/one_billion, 2)
+
+    # Symbol +/-
+    var_marketcap_bitcoin = last_marketcap_bitcoin-first_marketcap_bitcoin
+
+    # Percentajes of variation
+    var_marketcap_bitcoin_abs = round(abs(var_marketcap_bitcoin), 2)
+    var_marketcap_bitcoin_percentage = abs(
+        round(var_marketcap_bitcoin_abs/first_marketcap_bitcoin*100, 2))
+    var_marketcap_bitcoin_percentage_with_symbol = round(
+        var_marketcap_bitcoin_abs/first_marketcap_bitcoin*100, 2)
+
     # BITCOIN AS A COMPANY
     print("BTC AS COMPANY: ", last_price_bitcoin,
           last_marketcap_bitcoin, var_price_bitcoin)
     table_company = get_largest_companies_by_market_cap_and_include_bitcoin(
         last_price_bitcoin, last_marketcap_bitcoin, var_marketcap_bitcoin_percentage_with_symbol)
-    table_company = table_company[:19]
+    table_company = table_company
 
-    return render(request, 'index/index.html', locals())
+    return render(request, 'index/bitcoinasacompany.html', locals())
+
+
+def bitcoinasfiat_view(request):
+
+    index_html = '3'
+
+    current_time = time.localtime()
+    now1 = time.strftime('%Y-%m-%d %H:%M:%S', current_time)
+    year_ago = datetime.datetime.utcnow() - datetime.timedelta(days=365)
+
+    # Client api crypto
+    cg = CoinGeckoAPI()
+    json_response = cg.get_coin_market_chart_by_id('bitcoin', 'USD', '1')
+
+    myindex_last = -1
+    myindex_first = 0
+
+    # Prices of BTC
+    first_price_bitcoin = round(json_response['prices'][myindex_first][1], 2)
+    last_price_bitcoin = round(json_response['prices'][myindex_last][1], 2)
+
+    # Symbol +/-
+    var_price_bitcoin = last_price_bitcoin-first_price_bitcoin
+
+    # Data price of the last 24h
+    print("len prices: {}".format(len(json_response['prices'])))
+
+    # Market cap of the last 24h
+
+    first_marketcap_bitcoin = round(
+        json_response['market_caps'][myindex_first][1]/one_billion, 2)
+    last_marketcap_bitcoin = round(
+        json_response['market_caps'][myindex_last][1]/one_billion, 2)
+
+    # BITCOIN AS A COMPANY
+    print("BTC AS COMPANY: ", last_price_bitcoin,
+          last_marketcap_bitcoin, var_price_bitcoin)
+    table_company = get_fiat_currencies_by_market_cap_and_include_bitcoin(
+        last_price_bitcoin, last_marketcap_bitcoin)
+    table_company = table_company
+
+    return render(request, 'index/bitcoinasfiat.html', locals())
 
 # -------------------------- END INDEX -------------------
 
@@ -254,6 +345,57 @@ def get_largest_companies_by_market_cap_and_include_bitcoin(last_price_bitcoin, 
             frames = [data_up, row_btc, data_down]
             df = pd.concat(frames, sort=False)
             df2 = df[['Rank', 'Name', 'Market Cap', 'Price', 'Today', 'Country']]
-        
-        
+
     return df2
+
+
+def get_fiat_currencies_by_market_cap_and_include_bitcoin(last_price_bitcoin, last_marketcap_bitcoin):
+
+    data = pd.read_html('https://fiatmarketcap.com/', encoding='utf-8')
+    bitcoin_allocated = 0
+    data2 = data[0]  # wrapped
+
+    for idx, row in data2.iterrows():
+
+        mc = float(row['Market Cap'][:-4].replace(',', ''))
+
+        mc = mc*last_price_bitcoin
+
+        if mc in range(one_million, one_billion-1):
+            mc = mc/one_million
+            units = " M"
+        elif mc in range(one_billion, one_trillion-1):
+            mc = mc/one_billion
+            units = " B"
+        elif mc in range(one_trillion, one_cuatrillion-1):
+            mc = mc/one_trillion
+            units = " T"
+        mc_string = str(round(mc, 2))+units
+
+        data2.loc[idx, 'Market Cap 2'] = mc_string
+
+        # Compare to BTC and include
+        if last_marketcap_bitcoin*one_billion > mc and bitcoin_allocated == 0:
+            bitcoin_allocated = 1
+            print("BTC!")
+
+            # ALREADY LISTED
+
+            # data_up = data[:i]
+            # row_btc = pd.DataFrame([['¡BTC!',
+            #                          "Free World",
+            #                          '${} B'.format(last_marketcap_bitcoin),
+            #                          '${}'.format(last_price_bitcoin),
+            #                          '{}%'.format(var_price_bitcoin),
+            #                          '-']], columns=['#',
+            #                                                   'Currency',
+            #                                                   'Market Cap',
+            #                                                   'Price',
+            #                                                   'Circulating Supply',
+            #                                                   'Max Supply'])
+            # data_down = data[i:]
+            # frames = [data_up, row_btc, data_down]
+            # df = pd.concat(frames, sort=False)
+            # df2 = df[['Rank', 'Name', 'Market Cap', 'Price', 'Today', 'Country']]
+
+    return data2
