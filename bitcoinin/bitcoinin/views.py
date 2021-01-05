@@ -351,10 +351,10 @@ def get_largest_companies_by_market_cap_and_include_bitcoin(last_price_bitcoin, 
 
 def get_fiat_currencies_by_market_cap_and_include_bitcoin(last_price_bitcoin, last_marketcap_bitcoin):
 
-    data = pd.read_html('http://fiatmarketcap.com/', encoding='utf-8')
+    data = pd.read_html('https://fiatmarketcap.com/', encoding='utf-8')
     bitcoin_allocated = 0
     data2 = data[0]  # wrapped
-    print(data2)
+    # print(data2)
 
     # for idx, row in data2.iterrows():
 

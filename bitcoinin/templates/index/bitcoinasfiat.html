@@ -9,7 +9,7 @@
     <div class="col-12">
         <div class="card mb-3 mb-md-4">
             <div class="card-header">
-                <h5 class="font-weight-semi-bold mb-0">Bicoin as a company (isn't) | Market Cap | {{now1}}</h5>
+                <h5 class="font-weight-semi-bold mb-0">Bicoin as a Fiat Currency (isn't) | Market Cap | {{now1}}</h5>
             </div>
             <div class="card-body pt-0">
                 <div class="table-responsive-xl">
@@ -17,16 +17,16 @@
                         <thead>
                             <tr>
                                 <th class="font-weight-semi-bold border-top-0 py-2">Rank</th>
-                                <th class="font-weight-semi-bold border-top-0 py-2">Name</th>
+                                <th class="font-weight-semi-bold border-top-0 py-2">Currency</th>
                                 <th class="font-weight-semi-bold border-top-0 py-2">Market Cap</th>
                                 <th class="font-weight-semi-bold border-top-0 py-2">Price</th>
-                                <th class="font-weight-semi-bold border-top-0 py-2">Price (24H)</th>
-                                <th class="font-weight-semi-bold border-top-0 py-2">Country</th>
+                                <th class="font-weight-semi-bold border-top-0 py-2">Circulating Supply</th>
+                                <th class="font-weight-semi-bold border-top-0 py-2">Max Supply</th>
                             </tr>
                         </thead>
                         <tbody>
                             {% for idx,row in table_company.iterrows %}
-                            {% if row.1 == 'BITCOIN' %}
+                            {% if row.1 == 'BTC' %}
                             <tr>
                                 <td class="py-3 bg-warning">{{ row.0 }}</td>
                                 <td class="py-3 bg-warning">{{ row.1 }}</td>
