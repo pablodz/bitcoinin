@@ -281,6 +281,33 @@ def bitcoinasfiat_view(request):
 
     return render(request, 'index/bitcoinasfiat.html', locals())
 
+
+def bitcoinascrypto_view(request):
+
+
+    index_html = '3'
+
+    current_time = time.localtime()
+    now1 = time.strftime('%Y-%m-%d %H:%M:%S', current_time)
+    year_ago = datetime.datetime.utcnow() - datetime.timedelta(days=365)
+
+    # Client api crypto
+    cg = CoinGeckoAPI()
+    json_response = cg.get_global()
+
+    myindex_last = -1
+    myindex_first = 0
+
+    # Prices of BTC
+    data=pd.DataFrame.from_dict(json_response) 
+    data=data[['total_market_cap','total_volume','market_cap_percentage']]
+    data=data.reset_index(drop=False)
+    data=data.fillna("No registered")
+
+
+    return render(request, 'index/bitcoinascrypto.html', locals())
+
+
 # -------------------------- END INDEX -------------------
 
 

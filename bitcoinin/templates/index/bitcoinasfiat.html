@@ -28,12 +28,12 @@
                             {% for idx,row in table_company.iterrows %}
                             {% if row.1 == 'BTC' %}
                             <tr>
-                                <td class="py-3 bg-warning">{{ row.0 }}</td>
-                                <td class="py-3 bg-warning">{{ row.1 }}</td>
-                                <td class="py-3 bg-warning">{{ row.2 }}</td>
-                                <td class="py-3 bg-warning">{{ row.3 }}</td>
-                                <td class="py-3 bg-warning">{{ row.4 }}</td>
-                                <td class="py-3 bg-warning">{{ row.5 }}</td>
+                                <td class="py-3 bg-warning"><strong>{{ row.0 }}</strong></td>
+                                <td class="py-3 bg-warning"><strong>{{ row.1 }}</strong></td>
+                                <td class="py-3 bg-warning"><strong>{{ row.2 }}</strong></td>
+                                <td class="py-3 bg-warning"><strong>{{ row.3 }}</strong></td>
+                                <td class="py-3 bg-warning"><strong>{{ row.4 }}</strong></td>
+                                <td class="py-3 bg-warning"><strong>{{ row.5 }}</strong></td>
                             </tr>
                             {% else %}
                             <tr>

@@ -160,12 +160,12 @@
                 <!-- Dashboard -->
                 {% if index_html == '1' %}
                 <li class="side-nav-menu-item active">
-                {% else %}
+                    {% else %}
                 <li class="side-nav-menu-item">
-                {% endif %}    
+                    {% endif %}
                     <a class="side-nav-menu-link media align-items-center" href="{% url 'main-view' %}">
                         <span class="side-nav-menu-icon d-flex mr-3">
-                            <img src="https://img.icons8.com/fluent/36/000000/bitcoin.png"/>
+                            <img src="https://img.icons8.com/fluent/36/000000/bitcoin.png" />
                         </span>
                         <span class="side-nav-fadeout-on-closed media-body">Dashboard</span>
                     </a>
@@ -173,12 +173,12 @@
                 <!-- BTC AS COMPANY -->
                 {% if index_html == '2' %}
                 <li class="side-nav-menu-item active">
-                {% else %}
+                    {% else %}
                 <li class="side-nav-menu-item">
-                {% endif %}   
+                    {% endif %}
                     <a class="side-nav-menu-link media align-items-center" href="{% url 'bitcoinasacompany-view' %}">
                         <span class="side-nav-menu-icon d-flex mr-3">
-                            <img src="https://img.icons8.com/nolan/36/company.png"/>
+                            <img src="https://img.icons8.com/nolan/36/company.png" />
                         </span>
                         <span class="side-nav-fadeout-on-closed media-body">BTC as Company</span>
                     </a>
@@ -186,27 +186,27 @@
                 <!-- BTC AS FIAT -->
                 {% if index_html == '3' %}
                 <li class="side-nav-menu-item active">
-                {% else %}
+                    {% else %}
                 <li class="side-nav-menu-item">
-                {% endif %}   
+                    {% endif %}
                     <a class="side-nav-menu-link media align-items-center" href="{% url 'bitcoinasfiat-view' %}">
                         <span class="side-nav-menu-icon d-flex mr-3">
-                            <img src="https://img.icons8.com/officel/36/000000/money.png"/>
+                            <img src="https://img.icons8.com/officel/36/000000/money.png" />
                         </span>
                         <span class="side-nav-fadeout-on-closed media-body">BTC as Fiat Money</span>
                     </a>
                 </li>
                 <!-- BTC AS CRYPTO -->
-                {% if index_html == '3' %}
+                {% if index_html == '4' %}
                 <li class="side-nav-menu-item active">
-                {% else %}
+                    {% else %}
                 <li class="side-nav-menu-item">
-                {% endif %}   
-                    <a class="side-nav-menu-link media align-items-center" href="{% url 'bitcoinasfiat-view' %}">
+                    {% endif %}
+                    <a class="side-nav-menu-link media align-items-center" href="{% url 'bitcoinascrypto-view' %}">
                         <span class="side-nav-menu-icon d-flex mr-3">
-                            <img src="https://img.icons8.com/officel/36/000000/money.png"/>
+                            <img src="https://img.icons8.com/nolan/36/blockchain-new-logo.png"/>
                         </span>
-                        <span class="side-nav-fadeout-on-closed media-body">BTC as Fiat Money</span>
+                        <span class="side-nav-fadeout-on-closed media-body">BTC as Crypto</span>
                     </a>
                 </li>
 
@@ -231,8 +231,9 @@
 
                 <div class="mb-3 mb-md-4 d-flex justify-content-between">
                     <div class="row">
-                        <div class="h5 mb-0">Source code: <a
-                                href="https://github.com/ZurMaD/bitcoinin">github.com/zurmad/bitcoinin</a> (Give
+                        <div class="h5 mb-0">Source code and data: <strong><a
+                                    href="https://github.com/ZurMaD/bitcoinin">github.com/zurmad/bitcoinin</a></strong>
+                            (Give
                             suggestions or ideas to improve this site)</div>
                     </div>
                 </div>
