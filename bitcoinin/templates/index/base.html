@@ -196,6 +196,19 @@
                         <span class="side-nav-fadeout-on-closed media-body">BTC as Fiat Money</span>
                     </a>
                 </li>
+                <!-- BTC AS CRYPTO -->
+                {% if index_html == '3' %}
+                <li class="side-nav-menu-item active">
+                {% else %}
+                <li class="side-nav-menu-item">
+                {% endif %}   
+                    <a class="side-nav-menu-link media align-items-center" href="{% url 'bitcoinasfiat-view' %}">
+                        <span class="side-nav-menu-icon d-flex mr-3">
+                            <img src="https://img.icons8.com/officel/36/000000/money.png"/>
+                        </span>
+                        <span class="side-nav-fadeout-on-closed media-body">BTC as Fiat Money</span>
+                    </a>
+                </li>
 
                 <!-- END PANEL -->
             </ul>
