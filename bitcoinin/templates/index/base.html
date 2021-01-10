@@ -14,6 +14,17 @@
     <!-- Google indexation -->
     <meta name="google-site-verification" content="BEHa3HeT12XQ3Fd0ML-YffTwMaih1K8X5_NgKQE93fM" />
 
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-3KMQCV4LBZ"></script>
+    <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+
+    gtag('config', 'G-3KMQCV4LBZ');
+    </script>
+
+
     <!-- Favicon -->
     <link rel="shortcut icon" href=" {% static '1/public/img/favicon.ico' %}">
 
@@ -24,6 +35,8 @@
 
     <!-- Template -->
     <link rel="stylesheet" href=" {% static '1/public/graindashboard/css/graindashboard.css' %}">
+
+
 
     {% block cabecera %}
     {% endblock %}
