@@ -29,6 +29,7 @@ from .views import index_view
 from .views import bitcoinasacompany_view
 from .views import bitcoinasfiat_view
 from .views import bitcoinascrypto_view
+from .views import bitcoinascommodity_view
 
 urlpatterns = [
 
@@ -43,6 +44,7 @@ urlpatterns = [
     path('bitcoinasacompany/', bitcoinasacompany_view, name='bitcoinasacompany-view'),
     path('bitcoinasfiat/', bitcoinasfiat_view, name='bitcoinasfiat-view'),
     path('bitcoinascrypto/', bitcoinascrypto_view, name='bitcoinascrypto-view'),
+    path('bitcoinascommodity/',bitcoinascommodity_view,name='bitcoinascommodity-view'),
     # ------------------FIN INDEX------------------
 
 ]+static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)

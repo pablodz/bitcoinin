@@ -225,6 +225,19 @@
                         <span class="side-nav-fadeout-on-closed media-body">BTC as Crypto</span>
                     </a>
                 </li>
+                <!-- BTC AS COMMODITY -->
+                {% if index_html == '5' %}
+                <li class="side-nav-menu-item active">
+                    {% else %}
+                <li class="side-nav-menu-item">
+                    {% endif %}
+                    <a class="side-nav-menu-link media align-items-center" href="{% url 'bitcoinascommodity-view' %}">
+                        <span class="side-nav-menu-icon d-flex mr-3">
+                            <img src="https://img.icons8.com/nolan/36/commodity.png"/>
+                        </span>
+                        <span class="side-nav-fadeout-on-closed media-body">BTC as Commodity</span>
+                    </a>
+                </li>
 
                 <!-- END PANEL -->
             </ul>

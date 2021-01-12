@@ -36,14 +36,15 @@ Represent the growth of Bitcoin.
 
 List of cards:
 
-1. Bitcoin Price (24H)
-2. Bitcoin Market Cap (24H)
-3. Bitcoin Volume (24H)
-4. Comparison with last year (1yo)
-5. Bitcoin listed as company by market cap
-6. Bitcoin listed as currrency by market cap
+1. Bitcoin Dashboard
+   1. Bitcoin Market Cap (24H)
+   2. Bitcoin Volume (24H)
+   3. Comparison with last year (1yo)
+2. Bitcoin listed as company by market cap
+3. Bitcoin listed as currrency by market cap
+4. Bitcoin listed as crypto by market cap
 
-Sources: fiatmarketcap, companiesmarketcap, coingecko
+Sources: fiatmarketcap, companiesmarketcap, coingecko, coinranking
 
 ## Install
 
