@@ -431,3 +431,22 @@ def get_fiat_currencies_by_market_cap_and_include_bitcoin(last_price_bitcoin, la
             # df2 = df[['Rank', 'Name', 'Market Cap', 'Price', 'Today', 'Country']]
 
     return data2
+
+
+# -------------------------- EXTRAS -------------------
+
+import urllib.request
+
+def get_techcrunch_rss(request):
+
+    url='https://techcrunch.com/startups/feed/'
+    data=urllib.request.urlopen(url)
+    string_data=str(data.read().decode('utf-8'))
+
+    print(string_data)
+
+    # text_file = open("data.xml", "w")
+    # text_file.write(string_data)
+    # text_file.close()
+    
+    return render(request, 'techcrunch.xml', locals())
