@@ -437,16 +437,23 @@ def get_fiat_currencies_by_market_cap_and_include_bitcoin(last_price_bitcoin, la
 
 import urllib.request
 
-def get_techcrunch_rss(request):
+def get_techcrunch_techcrunch_rss(request):
+
+    url='https://techcrunch.com/feed/'
+    data=urllib.request.urlopen(url)
+    string_data=str(data.read().decode('utf-8'))
+
+    print(string_data)
+    
+    return render(request, 'rss/techcrunch/techcrunch.xml', locals(), content_type="application/xhtml+xml")
+
+
+def get_techcrunch_startups_rss(request):
 
     url='https://techcrunch.com/startups/feed/'
     data=urllib.request.urlopen(url)
     string_data=str(data.read().decode('utf-8'))
 
     print(string_data)
-
-    # text_file = open("data.xml", "w")
-    # text_file.write(string_data)
-    # text_file.close()
     
-    return render(request, 'techcrunch.xml', locals())
+    return render(request, 'rss/techcrunch/startups.xml', locals(), content_type="application/xhtml+xml")

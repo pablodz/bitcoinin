@@ -31,7 +31,8 @@ from .views import bitcoinasfiat_view
 from .views import bitcoinascrypto_view
 from .views import bitcoinascommodity_view
 
-from .views import get_techcrunch_rss
+from .views import get_techcrunch_techcrunch_rss
+from .views import get_techcrunch_startups_rss
 
 urlpatterns = [
 
@@ -49,6 +50,7 @@ urlpatterns = [
     path('bitcoinascommodity/',bitcoinascommodity_view,name='bitcoinascommodity-view'),
     # ------------------FIN INDEX------------------
     
-    path('techcrunch.xml',get_techcrunch_rss),
+    path('rss/techcrunch/techcrunch.xml', get_techcrunch_techcrunch_rss ),
+    path('rss/techcrunch/startups.xml', get_techcrunch_startups_rss ),
 
 ]+static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
