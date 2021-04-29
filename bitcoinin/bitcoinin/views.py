@@ -1,3 +1,4 @@
+import urllib.request
 from django.core import serializers
 from django.http import HttpResponse
 from django.http import JsonResponse
@@ -222,6 +223,7 @@ def bitcoinasacompany_view(request):
 
     # Symbol +/-
     var_marketcap_bitcoin = last_marketcap_bitcoin-first_marketcap_bitcoin
+    print(f'var_marketcap_bitcoin {var_marketcap_bitcoin}')
 
     # Percentajes of variation
     var_marketcap_bitcoin_abs = round(abs(var_marketcap_bitcoin), 2)
@@ -233,6 +235,7 @@ def bitcoinasacompany_view(request):
     # BITCOIN AS A COMPANY
     print("BTC AS COMPANY: ", last_price_bitcoin,
           last_marketcap_bitcoin, var_price_bitcoin)
+
     table_company = get_largest_companies_by_market_cap_and_include_bitcoin(
         last_price_bitcoin, last_marketcap_bitcoin, var_marketcap_bitcoin_percentage_with_symbol)
     table_company = table_company
@@ -282,8 +285,14 @@ def bitcoinasfiat_view(request):
     return render(request, 'index/bitcoinasfiat.html', locals())
 
 
-def bitcoinascrypto_view(request):
 
+def join_my_array(array=[]):
+
+    array=' '.join(array[1:-1])
+
+    return array
+
+def bitcoinascrypto_view(request):
 
     index_html = '4'
 
@@ -291,12 +300,20 @@ def bitcoinascrypto_view(request):
     now1 = time.strftime('%Y-%m-%d %H:%M:%S', current_time)
     year_ago = datetime.datetime.utcnow() - datetime.timedelta(days=365)
 
-    data=pd.read_html('https://coinranking.com/')
+    data = pd.read_html('https://coinranking.com/')
 
-    table_company =data[0].dropna()
+    table_company = data[0].dropna()
 
-    # data[['C','Cryptocurrency']]=data['Cryptocurrency'].str.split(" ",expand=True) 
+    print(table_company['Cryptocurrency'].str.split(' ').apply(join_my_array))
+    
+    table_company['Cryptocurrency']=table_company['Cryptocurrency'].str.split(' ').apply(join_my_array)
 
+
+    print(table_company)
+
+
+
+    # data[['C','Cryptocurrency']]=data['Cryptocurrency'].str.split(" ",expand=True)
 
     return render(request, 'index/bitcoinascrypto.html', locals())
 
@@ -308,7 +325,6 @@ def bitcoinascommodity_view(request):
     current_time = time.localtime()
     now1 = time.strftime('%Y-%m-%d %H:%M:%S', current_time)
     year_ago = datetime.datetime.utcnow() - datetime.timedelta(days=365)
-
 
     return render(request, 'index/bitcoinascommodity.html', locals())
 
@@ -341,7 +357,9 @@ def generate_chart_data(json_response_sub):
     return data_chart_price_bitcoin, max_btc, min_btc
 
 
-def get_largest_companies_by_market_cap_and_include_bitcoin(last_price_bitcoin, last_marketcap_bitcoin, var_price_bitcoin):
+def get_largest_companies_by_market_cap_and_include_bitcoin(last_price_bitcoin,
+                                                            last_marketcap_bitcoin,
+                                                            var_price_bitcoin):
     data = pd.read_html('https://companiesmarketcap.com/', encoding='utf-8')
     bitcoin_allocated = 0
     data = data[0]  # wrapped
@@ -359,23 +377,42 @@ def get_largest_companies_by_market_cap_and_include_bitcoin(last_price_bitcoin, 
             bitcoin_allocated = 1
             print("BTC! HERE")
             data_up = data[:i]
-            row_btc = pd.DataFrame([['¡BTC!',
-                                     "BITCOIN",
-                                     '${} B'.format(last_marketcap_bitcoin),
-                                     '${}'.format(last_price_bitcoin),
-                                     '{}%'.format(var_price_bitcoin),
-                                     '-',
-                                     'Free World']], columns=['Rank',
-                                                              'Name',
-                                                              'Market Cap',
-                                                              'Price',
-                                                              'Today',
-                                                              'Price (30 days)',
-                                                              'Country'])
+
+            if last_marketcap_bitcoin>1000:
+                last_marketcap_bitcoin/=1000
+                row_btc = pd.DataFrame([['¡BTC!',
+                                        "BITCOIN",
+                                        '${} T'.format(last_marketcap_bitcoin),
+                                        '${}'.format(last_price_bitcoin),
+                                        '{}%'.format(var_price_bitcoin),
+                                        '-',
+                                        'Free World']], columns=['Rank',
+                                                                'Name',
+                                                                'Market Cap',
+                                                                'Price',
+                                                                'Today',
+                                                                'Price (30 days)',
+                                                                'Country'])
+            else:
+                row_btc = pd.DataFrame([['¡BTC!',
+                                        "BITCOIN",
+                                        '${} B'.format(last_marketcap_bitcoin),
+                                        '${}'.format(last_price_bitcoin),
+                                        '{}%'.format(var_price_bitcoin),
+                                        '-',
+                                        'Free World']], columns=['Rank',
+                                                                'Name',
+                                                                'Market Cap',
+                                                                'Price',
+                                                                'Today',
+                                                                'Price (30 days)',
+                                                                'Country'])
             data_down = data[i:]
             frames = [data_up, row_btc, data_down]
             df = pd.concat(frames, sort=False)
             df2 = df[['Rank', 'Name', 'Market Cap', 'Price', 'Today', 'Country']]
+
+        
 
     return df2
 
@@ -411,50 +448,50 @@ def get_fiat_currencies_by_market_cap_and_include_bitcoin(last_price_bitcoin, la
     #         bitcoin_allocated = 1
     #         print("BTC!")
 
-            # ALREADY LISTED
+    # ALREADY LISTED
 
-            # data_up = data[:i]
-            # row_btc = pd.DataFrame([['¡BTC!',
-            #                          "Free World",
-            #                          '${} B'.format(last_marketcap_bitcoin),
-            #                          '${}'.format(last_price_bitcoin),
-            #                          '{}%'.format(var_price_bitcoin),
-            #                          '-']], columns=['#',
-            #                                                   'Currency',
-            #                                                   'Market Cap',
-            #                                                   'Price',
-            #                                                   'Circulating Supply',
-            #                                                   'Max Supply'])
-            # data_down = data[i:]
-            # frames = [data_up, row_btc, data_down]
-            # df = pd.concat(frames, sort=False)
-            # df2 = df[['Rank', 'Name', 'Market Cap', 'Price', 'Today', 'Country']]
+    # data_up = data[:i]
+    # row_btc = pd.DataFrame([['¡BTC!',
+    #                          "Free World",
+    #                          '${} B'.format(last_marketcap_bitcoin),
+    #                          '${}'.format(last_price_bitcoin),
+    #                          '{}%'.format(var_price_bitcoin),
+    #                          '-']], columns=['#',
+    #                                                   'Currency',
+    #                                                   'Market Cap',
+    #                                                   'Price',
+    #                                                   'Circulating Supply',
+    #                                                   'Max Supply'])
+    # data_down = data[i:]
+    # frames = [data_up, row_btc, data_down]
+    # df = pd.concat(frames, sort=False)
+    # df2 = df[['Rank', 'Name', 'Market Cap', 'Price', 'Today', 'Country']]
 
     return data2
 
 
 # -------------------------- EXTRAS -------------------
 
-import urllib.request
 
 def get_techcrunch_techcrunch_rss(request):
 
-    url='https://techcrunch.com/feed/'
-    data=urllib.request.urlopen(url)
-    string_data=str(data.read().decode('utf-8'))
+    url = 'https://techcrunch.com/feed/'
+    data = urllib.request.urlopen(url)
+    string_data = str(data.read().decode('utf-8'))
 
     print(string_data)
-    
+
     return render(request, 'rss/techcrunch/techcrunch.xml', locals(), content_type="application/xhtml+xml")
 
 
 def get_techcrunch_startups_rss(request):
 
-    url='https://techcrunch.com/startups/feed/'
-    data=urllib.request.urlopen(url)
-    string_data=str(data.read().decode('utf-8'))
+    url = 'https://techcrunch.com/startups/feed/'
+    data = urllib.request.urlopen(url)
+    string_data = str(data.read().decode('utf-8'))
 
-    string_data=string_data.replace('<atom:link href="https://techcrunch.com/startups/feed/" rel="self" type="application/rss+xml" />','')
+    string_data = string_data.replace(
+        '<atom:link href="https://techcrunch.com/startups/feed/" rel="self" type="application/rss+xml" />', '')
     # string_data=string_data.replace('<script data-dapp-detection="">!function(){let e=!1;function n(){if(!e){const n=document.createElement("meta");n.name="dapp-detected",document.head.appendChild(n),e=!0}}if(window.hasOwnProperty("ethereum")){if(window.__disableDappDetectionInsertion=!0,void 0===window.ethereum)return;n()}else{var t=window.ethereum;Object.defineProperty(window,"ethereum",{configurable:!0,enumerable:!1,set:function(e){window.__disableDappDetectionInsertion||n(),t=e},get:function(){if(!window.__disableDappDetectionInsertion){const e=arguments.callee;e&&e.caller&&e.caller.toString&&-1!==e.caller.toString().indexOf("getOwnPropertyNames")||n()}return t}})}}();</script>',"")
     # string_data=string_data.replace('<rss xmlns:content="http://purl.org/rss/1.0/modules/content/" xmlns:wfw="http://wellformedweb.org/CommentAPI/" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:sy="http://purl.org/rss/1.0/modules/syndication/" xmlns:slash="http://purl.org/rss/1.0/modules/slash/" version="2.0">','<rss xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:content="http://purl.org/rss/1.0/modules/content/" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:media="http://search.yahoo.com/mrss/" version="2.0">')
     print(string_data)

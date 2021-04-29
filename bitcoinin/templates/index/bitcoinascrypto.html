@@ -26,19 +26,19 @@
                         </thead>
                         <tbody>
                             {% for idx,row in table_company.iterrows %}
-                            {% if row.Cryptocurrency == '1  Bitcoin  BTC' %}
+                            {% if row.0 == ' Bitcoin ' %}
                             <tr>
                                 <td class="py-3 bg-warning"><strong>{{ row.0 }}</strong></td>
                                 <td class="py-3 bg-warning"><strong>{{ row.1 }}</strong></td>
                                 <td class="py-3 bg-warning"><strong>{{ row.2 }}</strong></td>
-                                <td class="py-3 bg-warning"><strong>{{ row.3 }}</strong></td>
+                                <td class="py-3 bg-warning"><strong>{{ row.4 }}</strong></td>
                             </tr>
                             {% else %}
                             <tr>
                                 <td class="py-3">{{ row.0 }}</td>
                                 <td class="py-3">{{ row.1 }}</td>
                                 <td class="py-3">{{ row.2 }}</td>
-                                <td class="py-3">{{ row.3 }}</td>
+                                <td class="py-3">{{ row.4 }}</td>
                             </tr>
                             {% endif %}
                             {% endfor%}
