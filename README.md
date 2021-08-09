@@ -1,7 +1,6 @@
 # BitcoinIN - Web
 
-[![Build Status](https://travis-ci.com/ZurMaD/bitcoinin.svg?branch=main)](https://travis-ci.com/ZurMaD/bitcoinin)
-
+[![Build Status](https://app.travis-ci.com/pablodz/bitcoinin.svg?branch=main)](https://app.travis-ci.com/pablodz/bitcoinin)
 
 <br />
 <p align="center">
